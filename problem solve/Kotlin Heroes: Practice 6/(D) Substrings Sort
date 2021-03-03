@@ -1,0 +1,71 @@
+fun make(array: Array<String>): Array<String>{
+    var ans = arrayListOf<String>()
+    var n = array.size
+    for (i in 0..n-1){
+        for (j in i+1..n-1){
+            if(array[i].length > array[j].length){
+                var tem = array[i]
+                array[i] = array[j]
+                array[j] = tem
+            }
+        }
+    }
+    var tem = Array<String>(n){""}
+    var j = 0
+    for (i in array){
+        tem[j] = i
+        j++
+    }
+    return  tem;
+}
+
+fun ck(a:String,b:String):Boolean{
+    var len_a = a.length
+    var j = 0
+    for(i in len_a-1.. b.length-1){
+        var len = (i-len_a)+1
+        var tem = b.substring(len, len_a+j)
+        j++
+        //print("${tem} ")
+        if(tem == a){
+            return true
+        }
+    }
+    return  false
+}
+
+fun main(){
+    var n = readLine()!!.toInt()
+    var a = arrayListOf<String>()
+    for (i in 0..n-1){
+        val s = readLine()!!.toString()
+        a.add(s)
+    }
+    var tem = Array<String>(n){""}
+    var j = 0
+    for (i in a){
+        tem[j] = i;
+        j++
+    }
+    var b = make(tem)
+    /*for(i in b){
+        println(i)
+    }*/
+    var f = false
+    for (i in 0..n-1){
+        for(j in i+1..n-1){
+            if(ck(b[i],b[j]) == false) {
+                f = true
+                break;
+            }
+        }
+    }
+    if (f == false){
+        println("YES")
+        for (i in b){
+            println(i)
+        }
+    }else{
+        println("NO")
+    }
+}
