@@ -1,0 +1,46 @@
+class DJS(val n: Int){
+    var par: MutableList<Long> = MutableList<Long>(n) {-1}
+    fun find(i: Long):Long{
+        if(par[i.toInt()] < 0) return i
+        else {
+            par[i.toInt()] = find(par[i.toInt()])
+            return  par[i.toInt()]
+        }
+    }
+    fun join(ii: Long, jj: Long):Boolean{
+        val i = find(ii)
+        val j = find(jj)
+        if(i == j) return false
+        if(par[i.toInt()] == par[j.toInt()])par[i.toInt()]--
+        if(par[i.toInt()]<= par[j.toInt()]){
+            par[j.toInt()] = i
+        }else{
+            par[i.toInt()] = j
+        }
+        return true
+    }
+}
+
+data class Edge(val from: Long, val to: Long, val cost: Long)
+
+fun main(){
+    val (n,m) = readLine()!!.split(" ").map { it.toLong() }
+    val a = readLine()!!.split(" ").map { it.toLong() }
+    var mindex = 0;
+    for (i in 0 until n){
+        if(a[i.toInt()] < a[mindex]) mindex = i.toInt();
+    }
+    val edges = mutableListOf<Edge>()
+    repeat(m.toInt()){
+        val(from, to ,cost) = readLine()!!.split(" ").map { it.toLong() }
+        edges.add(Edge(from-1,to-1, cost))
+    }
+    for (i in 0 until n){
+        edges.add(Edge(i.toLong(),mindex.toLong(),a[mindex]+a[i.toInt()]))
+    }
+    edges.sortBy { it.cost }
+    val dj = DJS(n.toInt())
+    var ans = 0L
+    edges.forEach{if(dj.join(it.from,it.to)) ans += it.cost}
+    println(ans)
+}
