@@ -1,0 +1,16 @@
+fun main(){
+    var (n,m,k) = readLine()!!.split(' ').map { it.toInt() }
+    var a = readLine()!!.split(' ').map { it.toInt() }
+    var sum = 0.toLong()
+    var ans = 0.toLong()
+    for(i in a.reversed()){
+        sum += i.toLong();
+        if(sum > k){
+            m--;
+            sum  = i.toLong();
+            if(m == 0)break
+        }
+        ans++
+    }
+    println(ans)
+}
