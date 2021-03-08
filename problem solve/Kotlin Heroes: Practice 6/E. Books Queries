@@ -1,0 +1,49 @@
+import kotlin.math.max
+import kotlin.math.min
+
+fun main(){
+    var n = readLine()!!.toInt()
+    var front = mutableListOf<Int>()
+    var back = mutableListOf<Int>()
+    var vis = HashMap<Int,Int>()
+    var pos = HashMap<Int,Boolean>()
+    var  f = true
+    while (n>0){
+        n -= 1
+        var (ch,l) = readLine()!!.split(' ')
+        ch.toCharArray()
+        if(ch == "L"){
+            if(f == true){
+                f = false
+                front.add(l.toInt());
+                back.add(l.toInt());
+                vis[l.toInt()] = 1;
+                pos[l.toInt()] = false;
+            }else{
+                front.add(l.toInt());
+                vis[l.toInt()] = front.size
+                pos[l.toInt()] = false;
+            }
+        }else if(ch == "R"){
+            if(f == true){
+                f = false
+                front.add(l.toInt());
+                back.add(l.toInt());
+                vis[l.toInt()] = 1;
+                pos[l.toInt()] = true;
+            }else{
+                back.add(l.toInt());
+                vis[l.toInt()] = back.size
+                pos[l.toInt()] = true
+            }
+        }else{
+            if(pos[l.toInt()] == true){
+                var p =  min(back.size - vis[l.toInt()]!!,max(0,front.size-1)+vis[l.toInt()]!! - 1)
+                println(p)
+            }else{
+                var p =  min(front.size - vis[l.toInt()]!!,(max(0,back.size-1)+vis[l.toInt()]!! - 1))
+                println(p)
+            }
+        }
+    }
+}
