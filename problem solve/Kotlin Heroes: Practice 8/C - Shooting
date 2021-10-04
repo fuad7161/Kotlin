@@ -1,0 +1,23 @@
+fun main(){
+    var n = readLine()!!.toInt()
+    var a = readLine()!!.split(' ').map { it.toInt() }
+    val p = mutableListOf<Pair<Int,Int>>()
+    for(i in 0..n-1){
+        p.add(Pair(a[i],i))
+    }
+    //println(p)
+    p.sortBy { it.first }
+    p.reverse()
+    var sum = 0
+    var c = 0
+    for(i in 0..n-1){
+        sum += (p[i].first*c)+1
+        c+=1
+    }
+    println(sum)
+    for (i in 0..n-1){
+        print(p[i].second+1)
+        print(" ")
+    }
+    println()
+}
