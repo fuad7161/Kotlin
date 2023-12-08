@@ -1,9 +1,0 @@
-
-import kotlin.math.min
-
-fun main(){
-    repeat(readLine()!!.toInt()){
-        var (n,a,b) = readLine()!!.split(' ').map { it.toLong() }
-        println(min(a*n,((n/2)*b)+(n%2)*a))
-    }
-}
